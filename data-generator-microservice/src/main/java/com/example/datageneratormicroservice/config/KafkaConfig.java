@@ -1,6 +1,7 @@
 package com.example.datageneratormicroservice.config;
 
 import com.jcabi.xml.XML;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -28,7 +29,7 @@ public class KafkaConfig {
     //Describing the kafka topics
 
     @Bean//topic that will save and store the data from sensors by temperature
-    public NewTopic temperatureTopic(){
+    public NewTopic temperatureTopic() {
         return TopicBuilder.name("data-temperature")
                 .partitions(5) //here should be an odd number of partitions to make kafka normally working
                 .replicas(1)
@@ -38,8 +39,9 @@ public class KafkaConfig {
                 )
                 .build();
     }
+
     @Bean//topic that will save and store the data from sensors by voltage
-    public NewTopic voltageTopic(){
+    public NewTopic voltageTopic() {
         return TopicBuilder.name("data-voltage")
                 .partitions(5) //here should be an odd number of partitions to make kafka normally working
                 .replicas(1)
@@ -49,8 +51,9 @@ public class KafkaConfig {
                 )
                 .build();
     }
+
     @Bean//topic that will save and store the data from sensors by power
-    public NewTopic powerTopic(){
+    public NewTopic powerTopic() {
         return TopicBuilder.name("data-power")
                 .partitions(5) //here should be an odd number of partitions to make kafka normally working
                 .replicas(1)
@@ -63,7 +66,7 @@ public class KafkaConfig {
 
     //kafka configuration, who will send the messages to kafka
     @Bean
-    public SenderOptions<String, Object> senderOptions(){
+    public SenderOptions<String, Object> senderOptions() {
         Map<String, Object> props = new HashMap<>(3); // here will be stored the configuration
         props.put(
                 ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
@@ -71,20 +74,20 @@ public class KafkaConfig {
         );
         props.put(
                 ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
-                new TextXPath(this.settings,"//keySerializer")
+                new TextXPath(this.settings, "//keySerializer")
                         .toString()
         );
         props.put(
                 ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
-                new TextXPath(this.settings,"//valueSerializer")
+                new TextXPath(this.settings, "//valueSerializer")
                         .toString()
         );
         return SenderOptions.create(props);
     }
 
     @Bean
-    public KafkaSender<String, Object> kafkaSender(){
-        return KafkaSender.create(senderOptions());
+    public KafkaSender<String, Object> kafkaSender(SenderOptions<String, Object> senderOptions) {
+        return KafkaSender.create(senderOptions);
     }
 
 }

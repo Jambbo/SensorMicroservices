@@ -11,7 +11,7 @@ public final class TextXPath {
     private final String node;
 
     @Override
-    public String toString(){
+    public String toString() {
         return this.xml.nodes(this.node)
                 .get(0)
                 .xpath("text()")
