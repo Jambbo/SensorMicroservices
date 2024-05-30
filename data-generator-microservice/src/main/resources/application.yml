@@ -1,1 +1,3 @@
-spring.application.name=data-generator-microservice
+spring:
+  kafka:
+    bootstrap-servers:
