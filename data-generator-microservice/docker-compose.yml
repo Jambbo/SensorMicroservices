@@ -1,0 +1,23 @@
+version: '3.0'
+
+networks:
+  app:
+    driver: bridge
+
+services:
+  generator:
+#    image: 'jambbo/data-generator-microservice:latest'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - app
+    depends_on:
+      - db
+      - zookeeper
+      - kafka
+    env_file:
+      - .env
+    ports:
+      - '8081:8081'
+
