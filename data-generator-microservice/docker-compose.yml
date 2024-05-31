@@ -1,5 +1,36 @@
 version: '3'
+
+volumes:
+  db-data:
+    driver: local
+
+
 services:
+  app:
+    build:
+      context: .
+    container_name: DataMicroservices
+    depends_on:
+      - db
+      - zookeeper
+      - kafka
+    env_file:
+      - .env
+    ports:
+      - '8080:8080'
+  db:
+    image: postgres:15.1-alpine
+    container_name: postgresmicro
+    environment:
+      - POSTGRES_USER=${POSTGRES_USERNAME}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    ports:
+      - '5439:5432'
+    volumes:
+      - ./src/main/resources/db-init:/docker-entrypoint-initdb.d
+      - db-data:/var/lib/postgresql/data
+
   zookeeper:
     image: wurstmeister/zookeeper:3.4.6
     ports:
@@ -14,3 +45,4 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
     depends_on:
       - zookeeper
+

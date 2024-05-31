@@ -3,6 +3,16 @@ spring:
     import: optional:file:.env[.properties]
   kafka:
     bootstrap-servers: localhost:9092 #${KAFKA_BOOTSTRAP_SERVERS}
+  datasource:
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
+    url: jdbc:postgresql://${HOST}:5439/${POSTGRES_DB}
+  jpa:
+    hibernate:
+      ddl-auto: none
+  liquibase:
+    change-log: classpath:liquibase/db.changelog.yaml
+    enabled: true
 server:
   port: 8082
 

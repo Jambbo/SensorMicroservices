@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="data-analyser-microservice" />
         <module name="DataMicroservices" />
+        <module name="data-generator-microservice" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
