@@ -7,15 +7,22 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="data-analyser-microservice" />
         <module name="DataMicroservices" />
-        <module name="data-generator-microservice" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="data-generator-microservice (1)" target="21" />
+      <module name="data-generator-microservice (2)" target="21" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="DataMicroservices" options="-parameters" />
+      <module name="data-analyser-microservice" options="-parameters" />
       <module name="data-generator-microservice" options="-parameters" />
+      <module name="data-generator-microservice (1)" options="-parameters" />
+      <module name="data-generator-microservice (2)" options="-parameters" />
     </option>
   </component>
 </project>

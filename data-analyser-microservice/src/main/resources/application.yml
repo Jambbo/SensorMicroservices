@@ -1,0 +1,9 @@
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  kafka:
+    bootstrap-servers: localhost:9092 #${KAFKA_BOOTSTRAP_SERVERS}
+server:
+  port: 8082
+
+topics: data-temperature,data-power,data-voltage #${KAFKA_SUBSCRIBED_TOPICS} #here will be stored a list of topics that we will subscribe on and process
