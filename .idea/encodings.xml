@@ -3,6 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/data-analyser-microservice/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/data-generator-microservice/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/data-store-microservice/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
   </component>

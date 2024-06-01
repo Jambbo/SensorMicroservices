@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="data-analyser-microservice" />
+        <module name="data-store-microservice" />
         <module name="DataMicroservices" />
         <module name="data-generator-microservice" />
       </profile>
@@ -24,6 +25,7 @@
       <module name="data-generator-microservice" options="-parameters" />
       <module name="data-generator-microservice (1)" options="-parameters" />
       <module name="data-generator-microservice (2)" options="-parameters" />
+      <module name="data-store-microservice" options="-parameters" />
     </option>
   </component>
 </project>

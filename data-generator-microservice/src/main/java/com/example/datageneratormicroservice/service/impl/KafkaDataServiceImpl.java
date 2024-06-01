@@ -28,7 +28,7 @@ public class KafkaDataServiceImpl implements KafkaDataService {
                                         topic,
                                         0,
                                         System.currentTimeMillis(),
-                                        /*hashcode is a key this time*/       String.valueOf(data.hashCode()),
+  /*hashcode is a key this time*/       String.valueOf(data.hashCode()),
                                         data,
                                         null
                                 )
