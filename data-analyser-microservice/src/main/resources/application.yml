@@ -6,7 +6,7 @@ spring:
   datasource:
     username: ${POSTGRES_USERNAME}
     password: ${POSTGRES_PASSWORD}
-    url: jdbc:postgresql://${HOST}:5439/${POSTGRES_DB}
+    url: jdbc:postgresql://${HOST}/${POSTGRES_DB}
   jpa:
     hibernate:
       ddl-auto: none

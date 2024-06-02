@@ -1,5 +1,6 @@
 package com.example.datastoremicroservice.repository;
 
+import com.example.datastoremicroservice.model.Data;
 import com.example.datastoremicroservice.model.MeasurementType;
 import com.example.datastoremicroservice.model.Summary;
 import com.example.datastoremicroservice.model.SummaryType;
@@ -11,6 +12,11 @@ public interface SummaryRepository{
 
     Optional<Summary> findBySensorId(Long sensorId,
                                      Set<MeasurementType> measurementTypes,
-                                     Set<SummaryType> summaryTypes);
+                                     Set<SummaryType> summaryTypes
+    );
+
+    void handle(
+            Data data
+    );
 
 }

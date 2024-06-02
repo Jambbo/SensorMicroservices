@@ -13,9 +13,10 @@ volumes:
     driver: local
   zookeeper-data:
     driver: local
+  debezium-data:
+    driver: local
 
 services:
-
   analyser:
     #    image: 'jambbo/data-analyser-microservice:latest'
     build:
@@ -27,10 +28,16 @@ services:
       - db
       - zookeeper
       - kafka
-    env_file:
-      - .env
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=${KAFKA_BOOTSTRAP_SERVERS}
+      - KAFKA_SUBSCRIBED_TOPICS=${KAFKA_SUBSCRIBED_TOPICS}
+      - HOST=${PG_HOST}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USERNAME=${POSTGRES_USERNAME}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
       - '8082:8082'
+
 
   db:
     image: postgres:15.1-alpine
@@ -44,20 +51,22 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
     ports:
       - '5439:5432'
+    command:
+      - "postgres"
+      - "-c"
+      - "wal_level=logical"
     volumes:
       - db-data:/var/lib/postgresql/data
 
   zookeeper:
     image: wurstmeister/zookeeper:3.4.6
-    networks:
-      - app
     ports:
       - "2182:2181"
+    volumes:
+      - zookeeper-data:/var/lib/zookeeper/data
 
   kafka:
     image: wurstmeister/kafka:latest
-    networks:
-      - app
     ports:
       - "9092:9092"
     environment:
@@ -79,6 +88,26 @@ services:
     volumes:
       - redis-data:/data
 
+  debezium:
+    image: 'debezium/connect:2.4.0.Final'
+    networks:
+      - app
+    depends_on:
+      - kafka
+    environment:
+      - BOOTSTRAP_SERVERS=${KAFKA_BOOTSTRAP_SERVERS}
+      - GROUP_ID=${DEBEZIUM_KAFKA_BROKER_ID}
+      - CONFIG_STORAGE_TOPIC=my_connect_configs
+      - OFFSET_STORAGE_TOPIC=my_connect_offsets
+      - STATUS_STORAGE_TOPIC=my_connect_statuses
+    user: root
+    command:
+      - bash
+      - -c
+      - "cd /on-startup; ls; ./run.sh"
+    volumes:
+      - debezium-data:/debezium/data
+      - ./conf:/on-startup/ #package called "conf" will throw to the package "on-startup"
 
 
 

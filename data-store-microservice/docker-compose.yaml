@@ -5,8 +5,7 @@ networks:
     driver: bridge
 
 services:
-  generator:
-#    image: 'jambbo/data-generator-microservice:latest'
+  store:
     build:
       context: .
       dockerfile: Dockerfile
@@ -15,5 +14,4 @@ services:
     env_file:
       - .env
     ports:
-      - '8081:8081'
-
+      - '8083:8083'

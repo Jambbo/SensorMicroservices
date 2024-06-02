@@ -22,6 +22,7 @@ public class Summary {
     public static class SummaryEntry{
         private SummaryType type;
         private Double value;
+        private Long counter; // this field will show how much data came by the current SummaryType
     }
 
     public Summary(){
